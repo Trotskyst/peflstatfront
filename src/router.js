@@ -5,10 +5,8 @@ import StatMain from "./views/StatMain.vue";
 
 Vue.use(Router);
 
-console.log(route);
-console.log(route.query);
-console.log(route.query.country);
-console.log(route.query.division);
+console.log(this.$router);
+console.log(this.$route);
 
 export default new Router({
   mode: 'history',
