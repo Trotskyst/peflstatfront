@@ -5,8 +5,8 @@ import StatMain from "./views/StatMain.vue";
 
 Vue.use(Router);
 
-console.log(this.$router);
-console.log(this.$route);
+// console.log(this.$router);
+// console.log(this.$route);
 
 export default new Router({
   mode: 'history',
