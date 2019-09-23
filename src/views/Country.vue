@@ -87,7 +87,7 @@ export default {
 
         for (var i = 0; i < this.divisions.length; i++) {
           this.divisions[i].link_stat =
-            "stat/" + decodeURIComponent(country) + "/" + decodeURIComponent(this.divisions[i].name);
+            "stat/?country=" + decodeURIComponent(country) + "&division=" + decodeURIComponent(this.divisions[i].name);
           // console.log(this.divisions[i].link_stat);
         }
 
