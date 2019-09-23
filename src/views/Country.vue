@@ -87,7 +87,7 @@ export default {
 
         for (var i = 0; i < this.divisions.length; i++) {
           this.divisions[i].link_stat =
-            "stat/" + country + "/" + this.divisions[i].name;
+            "stat/17/" + country + "/" + this.divisions[i].name;
         }
 
         this.SelectedCountry = country;
