@@ -15,9 +15,11 @@ export default new Router({
       component: Country
     },
     {
-      path: "/stat/:country/:division",
+      path: "/stat",
+      // path: "/stat/:country/:division",
       name: "statmain",
-      component: StatMain
+      component: StatMain,
+      props: (route) => ({ country: decodeURIComponent(route.query.country), division: encodeURIComponent(route.query.division) })
     },
   ]
 });
