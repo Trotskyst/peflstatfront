@@ -113,9 +113,9 @@ export default {
   data() {
     return {
       stat: null,
-      country: decodeURIComponent(this.$route.params.country),
-      division: decodeURIComponent(this.$route.params.division),
-      header_text: decodeURIComponent(this.$route.params.country) + '. ' + decodeURIComponent(this.$route.params.division),
+      country: decodeURIComponent(this.$route.query.country),
+      division: decodeURIComponent(this.$route.query.division),
+      header_text: decodeURIComponent(this.$route.query.country) + '. ' + decodeURIComponent(this.$route.query.division),
       header_show_link_change_chemp: 1,
       
       loading_top: true,
