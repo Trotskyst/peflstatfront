@@ -236,6 +236,8 @@ export default {
   },
   created() {
     // this.loading_top = true;
+    console.log(this.$route.params.country);
+    console.log(decodeURIComponent(this.$route.params.country));
     this.GetStatMain();
   }
 };
