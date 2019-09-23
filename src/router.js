@@ -15,7 +15,7 @@ export default new Router({
       component: Country
     },
     {
-      path: "/stat",
+      path: "/stat/",
       // path: "/stat/:country/:division",
       name: "statmain",
       component: StatMain,
