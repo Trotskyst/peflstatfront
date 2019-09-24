@@ -21,7 +21,8 @@ const port = process.env.PORT || 8000;
 const server = require('http').Server(app);
 
 // app.use(express.static(__dirname, 'dist', {index: false}));
-app.use(express.static(__dirname + '/'));
+// app.use(express.static(__dirname + '/'));
+app.use(express.static('/'));
 
 
 server.listen(port, function() {
