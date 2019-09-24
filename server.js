@@ -16,13 +16,15 @@
 
 const express = require('express');
 const app = express();
+const serveStatic = require('serve-static')
 const path = require('path');
 const port = process.env.PORT || 8000;
 const server = require('http').Server(app);
 
 // app.use(express.static(__dirname, 'dist', {index: false}));
 // app.use(express.static(__dirname + '/'));
-app.use(express.static('/'));
+// app.use(express.static('/'));
+app.use('/', serveStatic(path.join(__dirname, '/dist')))
 
 
 server.listen(port, function() {
