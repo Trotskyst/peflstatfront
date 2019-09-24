@@ -51,13 +51,16 @@
 import Loader from "@/components/Loader.vue";
 import Header from "@/components/Header.vue";
 
+import TT from "@/components/t.vue";
+
 export default {
   name: "country",
   components: {
     // LeftMenu,
     // CountryList,
     Loader,
-    Header
+    Header,
+    TT,
   },
   data() {
     return {

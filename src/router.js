@@ -3,6 +3,8 @@ import Router from "vue-router";
 import Country from "./views/Country.vue";
 import StatMain from "./views/StatMain.vue";
 
+import TT from "@/components/t.vue";
+
 Vue.use(Router);
 
 // console.log(this.$router);
@@ -18,20 +20,21 @@ export default new Router({
       component: Country
     },
     {
-      path: "/stat/",
+      path: "/stat",
       // path: "/stat/:country/:division",
       name: "statmain",
-      component: StatMain,
+      component: TT,
+      // component: StatMain,
       // props: (route) => ({ country: decodeURIComponent(route.query.country)})
       // props: (route) => ({ country: decodeURIComponent(route.query.country), division: decodeURIComponent(route.query.division) }),
-      beforeEnter(to, from, next) {
-        console.log(to);
-        console.log(from);
-        console.log(next);
-        console.log(route);
-        console.log(route.query.country);
-        console.log(route.query.division);
-      }
+      // beforeEnter(to, from, next) {
+      //   console.log(to);
+      //   console.log(from);
+      //   console.log(next);
+      //   // console.log(route);
+      //   // console.log(route.query.country);
+      //   // console.log(route.query.division);
+      // }
     },
   ]
 });
