@@ -1,29 +1,38 @@
-const express = require('express')
-const serveStatic = require('serve-static')
-const path = require('path')
+// const express = require('express')
+// const serveStatic = require('serve-static')
+// const path = require('path')
 
-const app = express()
+// const app = express()
 
-app.use('/', serveStatic(path.join(__dirname, '/dist')))
+// app.use('/', serveStatic(path.join(__dirname, '/dist')))
 
-
-
-if (process.env.NODE_ENV === 'production') {
-    // Exprees will serve up production assets
-    app.use(express.static('client/build'));
-  
-    // Express serve up index.html file if it doesn't recognize route
-    const path = require('path');
-    app.get('*', (req, res) => {
-      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
-  }
+// const port = process.env.PORT || 8080
+// app.listen(port)
 
 
 
-const port = process.env.PORT || 8080
-app.listen(port)
+// console.log('Listen on port: ' + port)
 
 
+const express = require('express');
+const app = express();
+const path = require('path');
+const port = process.env.PORT || 8000;
+const server = require('http').Server(app);
 
-console.log('Listen on port: ' + port)
+app.use(express.static(__dirname, 'dist', {index: false}));
+
+
+server.listen(port, function() {
+    console.log("App running on port " + port);
+})
+
+// PathLocationStrategy
+
+app.get('', function(req, res) {
+    res.sendFile(path.join(__dirname, 'src', 'index.html'));
+});
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'src', 'index.html'));
+});
