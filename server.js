@@ -24,7 +24,7 @@ const server = require('http').Server(app);
 // app.use(express.static(__dirname, 'dist', {index: false}));
 // app.use(express.static(__dirname + '/'));
 // app.use(express.static('/'));
-app.use('/', serveStatic(path.join(__dirname, '/dist')))
+app.use('/', serveStatic(path.join(__dirname, '/')))
 
 
 server.listen(port, function() {
