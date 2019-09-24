@@ -54,6 +54,10 @@ export default {
 .table_cell_not_result {
   background: #eff1fa;
 }
+.v-data-table {
+  /* background: #03a9f4; */
+  width: 600px;
+}
 
 .v-data-table td,
 .v-data-table th {

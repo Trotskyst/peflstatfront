@@ -55,7 +55,7 @@ export default {
 <style scoped>
 .v-data-table {
   /* background: #03a9f4; */
-  width: 100%;
+  width: 600px;
 }
 
 .v-data-table td,
@@ -67,6 +67,7 @@ export default {
   border: 1px solid rgb(54, 84, 125) !important;
   height: 14px !important;
 }
+
 .v-data-table th, .table_cell {
   text-align: center !important;
 }
@@ -85,5 +86,6 @@ export default {
 
 .container {
   width: 600px;
+  padding: 0px;
 }
 </style>
