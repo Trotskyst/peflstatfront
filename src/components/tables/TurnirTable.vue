@@ -54,7 +54,7 @@ export default {
 
 <style scoped>
 .v-data-table {
-  background: #03a9f4;
+  /* background: #03a9f4; */
   width: 100%;
 }
 

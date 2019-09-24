@@ -236,10 +236,10 @@ export default {
   },
   created() {
     // this.loading_top = true;
-    console.log(this.country);
-    console.log(this.division);
-    console.log(this.$route.query.country);
-    console.log(decodeURIComponent(this.$route.query.country));
+    // console.log(this.country);
+    // console.log(this.division);
+    // console.log(this.$route.query.country);
+    // console.log(decodeURIComponent(this.$route.query.country));
     this.GetStatMain();
   }
 };
