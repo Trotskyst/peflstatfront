@@ -71,6 +71,29 @@
         </td>
       </tr>
     </table>
+    
+    <table class="w100procent">
+      <tr>
+        <td class="w50procent">
+          <OtherTable v-if="loading_top == false" :table="table_efficiency_kick_them" />
+        </td>
+        <td class="w50procent">
+          <OtherTable v-if="loading_top == false" :table="table_efficiency_kick_their" />
+        </td>
+      </tr>
+    </table>
+    
+    <table class="w100procent">
+      <tr>
+        <td class="w50procent">
+          <OtherTable v-if="loading_top == false" :table="table_game_viewers_max" />
+        </td>
+        <td class="w50procent">
+          <OtherTable v-if="loading_top == false" :table="table_game_viewers_min" />
+        </td>
+      </tr>
+    </table>
+
 
   </div>
 </template>
@@ -89,6 +112,9 @@ import { GetBallKickTargetThem } from "@/assets/js/turnir_table.js";
 import { GetBallKickTargetTheir } from "@/assets/js/turnir_table.js";
 import { GetBallKickTargetProcentThem } from "@/assets/js/turnir_table.js";
 import { GetBallKickTargetProcentTheir } from "@/assets/js/turnir_table.js";
+import { GetGameViewers } from "@/assets/js/turnir_table.js";
+import { GetEfficiencyKick } from "@/assets/js/turnir_table.js";
+
 
 // import LeftMenu from "@/components/LeftMenu.vue";
 // import CountryList from "@/components/CountryList.vue";
@@ -146,7 +172,12 @@ export default {
       table_ball_kick_target_them: [],
       table_ball_kick_target_their: [],
       table_ball_kick_target_procent_them: [],
-      table_ball_kick_target_procent_their: []
+      table_ball_kick_target_procent_their: [],
+      table_game_viewers_max: [],
+      table_game_viewers_min: [],
+      table_efficiency_kick_them:[],
+      table_efficiency_kick_their:[],
+      
     };
   },
   methods: {
@@ -231,6 +262,26 @@ export default {
           this.team_list,
           this.stat
         ); //Точность у соперников
+        this.table_game_viewers_max = GetGameViewers(
+          this.team_list,
+          this.stat,
+          'max'
+        ); //Посещаемые матчи
+        this.table_game_viewers_min = GetGameViewers(
+          this.team_list,
+          this.stat,
+          'min'
+        ); //Непосещаемые матчи
+        this.table_efficiency_kick_them = GetEfficiencyKick(
+          this.team_list,
+          this.stat,
+          'them'
+        ); //Эффективность ударов у них
+        this.table_efficiency_kick_their = GetEfficiencyKick(
+          this.team_list,
+          this.stat,
+          'their'
+        ); //Эффективность ударов у соперников
       });
     }
   },

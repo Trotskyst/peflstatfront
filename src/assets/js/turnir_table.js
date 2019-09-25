@@ -787,3 +787,121 @@ export function GetBallKickTargetProcentTheir(team_list, stat) {
         "table_name": 'Точность у соперников',
     };
 }
+
+export function GetGameViewers(team_list, stat, type) {
+    let table = [];
+    for (let i = 0; i < stat.length; i++) {
+        table.push({
+            "game": stat[i]['team_home'] + '-' + stat[i]['team_guest'] +
+                ' (' + stat[i]['goals_home'] + '-' + stat[i]['goals_guest'] + '). ' + stat[i]['tur_number'] + ' тур',
+            "viewers": stat[i]['viewers']
+        });
+    }
+
+    table = table.sort(function (a, b) {
+        if (type == 'max') {
+            if (b["viewers"] > a["viewers"]) return 1;
+            if (b["viewers"] < a["viewers"]) return -1;
+        } else {
+            if (b["viewers"] < a["viewers"]) return 1;
+            if (b["viewers"] > a["viewers"]) return -1;
+        }
+        return 0
+    });
+
+    let table_name = '';
+    if (type == 'max')
+        table_name = 'Посещаемые матчи';
+    else
+        table_name = 'Непосещаемые  матчи';
+
+    let result_count = 10;
+    let result_table = []
+    for (let i = 0; i < result_count; i++) {
+        result_table.push([
+            { 'class': 'text-center', "value": i + 1 },
+            { 'class': 'text-left', "value": table[i]["game"] },
+            { 'class': 'text-center', "value": table[i]["viewers"].toLocaleString('ru-RU') },
+        ]);
+    }
+
+    return {
+        "header": [
+            { "text": "N", "value": "number" },
+            { "text": "Матч", "value": "values" },
+            { "text": "Зрителей", "value": "viewers" },
+        ],
+        "table": result_table,
+        "table_name": table_name,
+    };
+}
+
+export function GetEfficiencyKick(team_list, stat, type) {
+    let table = [];
+    let type_team1 = ''
+    let type_team2 = ''
+    let table_name = ''
+    if (type == 'them') {
+        type_team1 = 'team_home';
+        type_team2 = 'team_guest';
+        table_name = 'Эффективность ударов у них';
+    } else {
+        type_team1 = 'team_guest';
+        type_team2 = 'team_home';
+        table_name = 'Эффективность ударов у соперников';
+    }
+
+    for (let team of team_list) {
+        let kick_target = 0;
+        let goal = 0;
+        for (let i = 0; i < stat.length; i++) {
+            if (stat[i][type_team1] == team) {
+                goal += stat[i]['goals_home'];
+                kick_target += stat[i]['kick_target_home'];
+            }
+            else if (stat[i][type_team2] == team) {
+                goal += stat[i]['goals_guest'];
+                kick_target += stat[i]['kick_target_guest'];
+            }
+        }
+        table.push({
+            "team": team,
+            "goal": goal,
+            "kick_target": kick_target,
+            "kick_procent": goal * 100 / kick_target
+        });
+    }
+    table = table.sort(function (a, b) {
+        if (type == 'them') {
+            if (b["kick_procent"] > a["kick_procent"]) return 1;
+            if (b["kick_procent"] < a["kick_procent"]) return -1;
+        } else {
+            if (b["kick_procent"] < a["kick_procent"]) return 1;
+            if (b["kick_procent"] > a["kick_procent"]) return -1;
+        }
+        return 0
+    });
+
+    let result_table = []
+    for (let i = 0; i < table.length; i++) {
+        result_table.push([
+            { 'class': 'text-center', "value": i + 1 },
+            { 'class': 'text-left', "value": table[i]["team"] },
+            { 'class': 'text-center', "value": table[i]["goal"] },
+            { 'class': 'text-center', "value": table[i]["kick_target"] },
+            { 'class': 'text-center', "value": table[i]["kick_procent"].toFixed(1) },
+        ]);
+    }
+
+    return {
+        "header": [
+            { "text": "N", "value": "number" },
+            { "text": "Команда", "value": "values" },
+            { "text": "Голов", "value": "goal" },
+            { "text": "Ударов в створ", "value": "kick_target" },
+            { "text": "%", "value": "kick_procent" },
+        ],
+        "table": result_table,
+        "table_name": table_name,
+    };
+}
