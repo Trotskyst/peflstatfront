@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :header_text=header_text :show_link_change_chemp=header_show_link_change_chemp />
+    <Header :header_text="header_text" :show_link_change_chemp="header_show_link_change_chemp" />
 
     <div class="container">
       <h1>Чемпионат</h1>
@@ -60,7 +60,7 @@ export default {
     // CountryList,
     Loader,
     Header,
-    TT,
+    TT
   },
   data() {
     return {
@@ -91,7 +91,10 @@ export default {
         for (var i = 0; i < this.divisions.length; i++) {
           this.divisions[i].link_stat =
             // "stat/?country=" + (country) + "&division=" + (this.divisions[i].name);
-            "stat/?country=" + decodeURIComponent(country) + "&division=" + decodeURIComponent(this.divisions[i].name);
+            "stat/?country=" +
+            decodeURIComponent(country) +
+            "&division=" +
+            decodeURIComponent(this.divisions[i].name);
           // console.log(this.divisions[i].link_stat);
         }
 
