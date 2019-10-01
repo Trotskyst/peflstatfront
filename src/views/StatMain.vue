@@ -148,6 +148,8 @@ export default {
       stat_players: null,
       stat_goals: null,
       apiLoaded: 0,
+      // api_url: "https://peflstatback.herokuapp.com",
+      api_url: 'http://127.0.0.1:8000',
       country: decodeURIComponent(this.$route.query.country),
       division: decodeURIComponent(this.$route.query.division),
       header_text:
@@ -199,8 +201,8 @@ export default {
     async GetStatMain() {
       const axios = require("axios");
       let url =
-        // "https://peflstatback.herokuapp.com/api/v1/stat/main/17/" +
-        "http://127.0.0.1:8000/api/v1/stat/main/17/" +
+        this.api_url +
+        "/api/v1/stat/main/17/" +
         this.country +
         "/" +
         this.division +
@@ -304,7 +306,8 @@ export default {
     async GetStatTTD() {
       const axios = require("axios");
       let url =
-        "http://127.0.0.1:8000/api/v1/stat/players/17/" +
+        this.api_url +
+        "/api/v1/stat/players/17/" +
         this.country +
         "/" +
         this.division +
@@ -322,7 +325,8 @@ export default {
     async GetStatGoals() {
       const axios = require("axios");
       let url =
-        "http://127.0.0.1:8000/api/v1/stat/goals/17/" +
+        this.api_url +
+        "/api/v1/stat/goals/17/" +
         this.country +
         "/" +
         this.division +
