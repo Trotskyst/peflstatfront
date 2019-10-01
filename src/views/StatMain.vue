@@ -148,8 +148,8 @@ export default {
       stat_players: null,
       stat_goals: null,
       apiLoaded: 0,
-      // api_url: "https://peflstatback.herokuapp.com",
-      api_url: 'http://127.0.0.1:8000',
+      api_url: "https://peflstatback.herokuapp.com",
+      // api_url: 'http://127.0.0.1:8000',
       country: decodeURIComponent(this.$route.query.country),
       division: decodeURIComponent(this.$route.query.division),
       header_text:
@@ -379,8 +379,8 @@ export default {
     // console.log(this.$route.query.country);
     // console.log(decodeURIComponent(this.$route.query.country));
     this.GetStatMain();
-    this.GetStatTTD();
-    this.GetStatGoals();
+    // this.GetStatTTD();
+    // this.GetStatGoals();
   }
 };
 </script>
