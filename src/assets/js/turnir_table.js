@@ -3,9 +3,9 @@ export function GetTurnirTable(score, table_type) {
     let team_list_tmp = [];
 
     for (let i = 0; i < score.length; i++) {
-        if (table_type == 'all' || table_type == 'home')
+        if (table_type === 'all' || table_type === 'home')
             team_list_tmp.push(score[i]["team_home"]);
-        if (table_type == 'all' || table_type == 'guest')
+        if (table_type === 'all' || table_type === 'guest')
             team_list_tmp.push(score[i]["team_guest"]);
     }
     let team_list = new Set(team_list_tmp);
@@ -18,30 +18,33 @@ export function GetTurnirTable(score, table_type) {
         let i_goals_score = 0;
         let i_goals_miss = 0;
         for (let j = 0; j < score.length; j++) {
-            if (table_type == 'all' || table_type == 'home')
-                if (score[j]["team_home"] == team) {
+            if (table_type === 'all' || table_type === 'home')
+                if (score[j]["team_home"] === team) {
+                    // if (team === 'Кривбасс') {
+                    //     console.log(score[j]["goals_home"], score[j]["goals_guest"], score[j]["team_guest"]);
+                    // }
                     i_games++;
                     i_goals_score += score[j]["goals_home"];
                     i_goals_miss += score[j]["goals_guest"];
                     if (score[j]["goals_home"] > score[j]["goals_guest"]) {
                         i_wins++;
                     }
-                    else if (score[j]["goals_home"] == score[j]["goals_guest"]) {
+                    else if (score[j]["goals_home"] === score[j]["goals_guest"]) {
                         i_draws++;
                     }
                     else {
                         i_loses++;
                     }
                 }
-            if (table_type == 'all' || table_type == 'guest')
-                if (score[j]["team_guest"] == team) {
+            if (table_type === 'all' || table_type === 'guest')
+                if (score[j]["team_guest"] === team) {
                     i_games++;
                     i_goals_score += score[j]["goals_guest"];
                     i_goals_miss += score[j]["goals_home"];
                     if (score[j]["goals_home"] < score[j]["goals_guest"]) {
                         i_wins++;
                     }
-                    else if (score[j]["goals_home"] == score[j]["goals_guest"]) {
+                    else if (score[j]["goals_home"] === score[j]["goals_guest"]) {
                         i_draws++;
                     }
                     else {
@@ -73,6 +76,8 @@ export function GetTurnirTable(score, table_type) {
         turnir_table[i]["number"] = i + 1;
     }
 
+    // console.log(turnir_table);
+
     let turnir_table_header =
         ["N", "Команда", "И", "В", "Н", "П", "МЗ", "МП", "+/-", "О"];
     let turnir_table_header_value =
@@ -84,10 +89,10 @@ export function GetTurnirTable(score, table_type) {
     }
 
     let turnir_table_name = "Турнирная таблица"
-    if (table_type == 'home') {
+    if (table_type === 'home') {
         turnir_table_name += " (дома)";
     }
-    else if (table_type == 'guest') {
+    else if (table_type === 'guest') {
         turnir_table_name += " (в гостях)";
     }
     return {
@@ -104,12 +109,12 @@ function GetAccountList(score, team_home, team_guest) {
     let AccountList = '';
     let tmp_account = [];
     for (let i1 = 0; i1 < score.length; i1++) {
-        if (score[i1]['team_home'] == team_home &&
-            score[i1]['team_guest'] == team_guest) {
+        if (score[i1]['team_home'] === team_home &&
+            score[i1]['team_guest'] === team_guest) {
             tmp_account.push(score[i1]['goals_home'].toString() + ':' + score[i1]['goals_guest'].toString());
         }
     }
-    if (tmp_account.length == 0)
+    if (tmp_account.length === 0)
         AccountList = '';
     else {
         for (let i1 = 0; i1 < tmp_account.length; i1++) {
@@ -131,7 +136,7 @@ export function GetShahmatka(score, turnir_table) {
     for (let i = 0; i < turnir_table.length; i++) {
         let tmp_array = [(i + 1).toString(), turnir_table[i]['team']];
         for (let j = 0; j < turnir_table.length; j++) {
-            if (i == j)
+            if (i === j)
                 tmp_array.push('X');
             else
                 tmp_array.push(GetAccountList(score, turnir_table[i]['team'], turnir_table[j]['team']));
@@ -173,7 +178,7 @@ export function GetGeneralInformation(stat) {
             draws++;
         if ((i_goals_home + i_goals_guest) > 3)
             games_effective++;
-        else if ((i_goals_home + i_goals_guest) == 0)
+        else if ((i_goals_home + i_goals_guest) === 0)
             games_noteffective++;
     }
     table.push({ "number": 2, "name": 'Всего голов', "value": (goals_home + goals_guest).toString() });
@@ -210,10 +215,10 @@ function ListFromArray(list, name_to_list, name_to_compare, separator) {
     let count = 1;
     let s = '';
     for (let i = 1; i < list.length; i++) {
-        if (list[i][name_to_compare] == list[0][name_to_compare])
+        if (list[i][name_to_compare] === list[0][name_to_compare])
             count++;
     }
-    if (count == 1)
+    if (count === 1)
         s = list[0][name_to_list];
     else {
         for (let i = 0; i < list.length; i++) {
@@ -243,10 +248,10 @@ export function GetCommandsRecords(team_list, stat) {
         let goals = 0;
         let goals_in = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 goals += stat[i]['goals_home'];
                 goals_in += stat[i]['goals_guest'];
-            } else if (stat[i]['team_guest'] == team) {
+            } else if (stat[i]['team_guest'] === team) {
                 goals += stat[i]['goals_guest'];
                 goals_in += stat[i]['goals_home'];
             }
@@ -332,11 +337,11 @@ export function GetCornerPlay(team_list, stat) {
         let value_cross = 0;
         let value_playout = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 value_cross += stat[i]['corner_cross_home'];
                 value_playout += stat[i]['corner_playout_home'];
             }
-            else if (stat[i]['team_guest'] == team) {
+            else if (stat[i]['team_guest'] === team) {
                 value_cross += stat[i]['corner_cross_guest'];
                 value_playout += stat[i]['corner_playout_guest'];
             }
@@ -387,12 +392,12 @@ export function GetFreekickPlay(team_list, stat) {
         let value_kick = 0;
         let value_playout = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 value_cross += stat[i]['freekick_cross_home'];
                 value_kick += stat[i]['freekick_kick_home'];
                 value_playout += stat[i]['freekick_playout_home'];
             }
-            else if (stat[i]['team_guest'] == team) {
+            else if (stat[i]['team_guest'] === team) {
                 value_cross += stat[i]['freekick_cross_guest'];
                 value_kick += stat[i]['freekick_kick_guest'];
                 value_playout += stat[i]['freekick_playout_guest'];
@@ -448,11 +453,11 @@ export function GetBallPossession(team_list, stat) {
         let possession = 0;
         let minutes = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 minutes += stat[i]['minutes'];
                 possession += stat[i]['possession_home'] * stat[i]['minutes'] / 100;
             }
-            else if (stat[i]['team_guest'] == team) {
+            else if (stat[i]['team_guest'] === team) {
                 minutes += stat[i]['minutes'];
                 possession += stat[i]['possession_guest'] * stat[i]['minutes'] / 100;
             }
@@ -494,11 +499,11 @@ export function GetBallKickThem(team_list, stat) {
         let games = 0;
         let kick = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 games++;
                 kick += stat[i]['kick_home'];
             }
-            else if (stat[i]['team_guest'] == team) {
+            else if (stat[i]['team_guest'] === team) {
                 games++;
                 kick += stat[i]['kick_guest'];
             }
@@ -543,11 +548,11 @@ export function GetBallKickTheir(team_list, stat) {
         let games = 0;
         let kick = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 games++;
                 kick += stat[i]['kick_guest'];
             }
-            else if (stat[i]['team_guest'] == team) {
+            else if (stat[i]['team_guest'] === team) {
                 games++;
                 kick += stat[i]['kick_home'];
             }
@@ -592,11 +597,11 @@ export function GetBallKickTargetThem(team_list, stat) {
         let games = 0;
         let kick = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 games++;
                 kick += stat[i]['kick_target_home'];
             }
-            else if (stat[i]['team_guest'] == team) {
+            else if (stat[i]['team_guest'] === team) {
                 games++;
                 kick += stat[i]['kick_target_guest'];
             }
@@ -641,11 +646,11 @@ export function GetBallKickTargetTheir(team_list, stat) {
         let games = 0;
         let kick = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 games++;
                 kick += stat[i]['kick_target_guest'];
             }
-            else if (stat[i]['team_guest'] == team) {
+            else if (stat[i]['team_guest'] === team) {
                 games++;
                 kick += stat[i]['kick_target_home'];
             }
@@ -690,11 +695,11 @@ export function GetBallKickTargetProcentThem(team_list, stat) {
         let kick = 0;
         let kick_target = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 kick += stat[i]['kick_home'];
                 kick_target += stat[i]['kick_target_home'];
             }
-            else if (stat[i]['team_guest'] == team) {
+            else if (stat[i]['team_guest'] === team) {
                 kick += stat[i]['kick_guest'];
                 kick_target += stat[i]['kick_target_guest'];
             }
@@ -742,11 +747,11 @@ export function GetBallKickTargetProcentTheir(team_list, stat) {
         let kick = 0;
         let kick_target = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i]['team_home'] == team) {
+            if (stat[i]['team_home'] === team) {
                 kick += stat[i]['kick_guest'];
                 kick_target += stat[i]['kick_target_guest'];
             }
-            else if (stat[i]['team_guest'] == team) {
+            else if (stat[i]['team_guest'] === team) {
                 kick += stat[i]['kick_home'];
                 kick_target += stat[i]['kick_target_home'];
             }
@@ -799,7 +804,7 @@ export function GetGameViewers(team_list, stat, type) {
     }
 
     table = table.sort(function (a, b) {
-        if (type == 'max') {
+        if (type === 'max') {
             if (b["viewers"] > a["viewers"]) return 1;
             if (b["viewers"] < a["viewers"]) return -1;
         } else {
@@ -810,7 +815,7 @@ export function GetGameViewers(team_list, stat, type) {
     });
 
     let table_name = '';
-    if (type == 'max')
+    if (type === 'max')
         table_name = 'Посещаемые матчи';
     else
         table_name = 'Непосещаемые  матчи';
@@ -841,7 +846,7 @@ export function GetEfficiencyKick(team_list, stat, type) {
     let type_team1 = ''
     let type_team2 = ''
     let table_name = ''
-    if (type == 'them') {
+    if (type === 'them') {
         type_team1 = 'team_home';
         type_team2 = 'team_guest';
         table_name = 'Эффективность ударов у них';
@@ -855,11 +860,11 @@ export function GetEfficiencyKick(team_list, stat, type) {
         let kick_target = 0;
         let goal = 0;
         for (let i = 0; i < stat.length; i++) {
-            if (stat[i][type_team1] == team) {
+            if (stat[i][type_team1] === team) {
                 goal += stat[i]['goals_home'];
                 kick_target += stat[i]['kick_target_home'];
             }
-            else if (stat[i][type_team2] == team) {
+            else if (stat[i][type_team2] === team) {
                 goal += stat[i]['goals_guest'];
                 kick_target += stat[i]['kick_target_guest'];
             }
@@ -872,7 +877,7 @@ export function GetEfficiencyKick(team_list, stat, type) {
         });
     }
     table = table.sort(function (a, b) {
-        if (type == 'them') {
+        if (type === 'them') {
             if (b["kick_procent"] > a["kick_procent"]) return 1;
             if (b["kick_procent"] < a["kick_procent"]) return -1;
         } else {
