@@ -19,8 +19,8 @@
     <v-toolbar height="auto" v-if="loading_top">
       <v-container flex>
         <Loader v-if="loading_top" :text_info="text_info_main" />
-        <!-- <Loader v-if="loading_top2" :text_info="text_info_players" />
-        <Loader v-if="loading_top3" :text_info="text_info_goals" /> -->
+        <Loader v-if="loading_top2" :text_info="text_info_players" />
+        <Loader v-if="loading_top3" :text_info="text_info_goals" />
       </v-container>
     </v-toolbar>
   </div>
