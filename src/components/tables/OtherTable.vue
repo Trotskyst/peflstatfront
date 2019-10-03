@@ -67,4 +67,10 @@ export default {
 .table_cell {
   text-align: center !important;
 }
+
+tr.header:hover {
+  background: #303f9f !important;
+  color: white !important;
+}
+
 </style>

@@ -1,48 +1,55 @@
 <template>
   <div id="app">
+    <!-- Турнирная таблица -->
     <TurnirTable
       :table_name="turnir_table_name_all"
       :table="turnir_table_all"
       :headers="turnir_table_header"
       :row_count="row_count_all"
     />
-
+    <!-- Турнирная таблица (дома) -->
     <TurnirTable
       :table_name="turnir_table_name_home"
       :table="turnir_table_home"
       :headers="turnir_table_header"
       :row_count="row_count_home"
     />
-
+    <!-- Турнирная таблица (в гостях) -->
     <TurnirTable
       :table_name="turnir_table_name_guest"
       :table="turnir_table_guest"
       :headers="turnir_table_header"
       :row_count="row_count_guest"
     />
-
+    <!-- Шахматка -->
     <Shahmatka :table="table_shahmatka" />
-
+    <!-- Общая статистика -->
     <OtherTable :table="table_general" />
+    <!-- Команды-рекордсмены -->
     <OtherTable :table="table_commands_recors" />
+    <!-- Владение мячом -->
     <OtherTable :table="table_ball_possession" />
-
+    <!-- Статистика розыгрышей угловых и штрафных -->
     <TwoColumnsTables :table_left="table_corner_play" :table_right="table_freekick_play" />
+    <!-- Нанесено ударов -->
     <TwoColumnsTables :table_left="table_ball_kick_them" :table_right="table_ball_kick_their" />
+    <!-- Нанесено ударов в створ -->
     <TwoColumnsTables
       :table_left="table_ball_kick_target_them"
       :table_right="table_ball_kick_target_their"
     />
+    <!-- Точность -->
     <TwoColumnsTables
       :table_left="table_ball_kick_target_procent_them"
       :table_right="table_ball_kick_target_procent_their"
     />
+    <!-- Эффективность ударов -->
     <TwoColumnsTables
       :table_left="table_efficiency_kick_them"
       :table_right="table_efficiency_kick_their"
     />
+    <!-- Посещаемые матчи -->
     <TwoColumnsTables :table_left="table_game_viewers_max" :table_right="table_game_viewers_min" />
-
   </div>
 </template>
 
@@ -65,10 +72,10 @@ import { GetBallKickTargetProcentTheir } from "@/assets/js/turnir_table.js";
 import { GetGameViewers } from "@/assets/js/turnir_table.js";
 import { GetEfficiencyKick } from "@/assets/js/turnir_table.js";
 
-import TurnirTable from "@/components/tables/TurnirTable.vue";
-import Shahmatka from "@/components/tables/Shahmatka.vue";
-import OtherTable from "@/components/tables/OtherTable.vue";
-import TwoColumnsTables from "@/components/tables/TwoColumnsTables.vue";
+import TurnirTable from "@/components/tables/TurnirTable";
+import Shahmatka from "@/components/tables/Shahmatka";
+import OtherTable from "@/components/tables/OtherTable";
+import TwoColumnsTables from "@/components/tables/TwoColumnsTables";
 
 // import TT from "@/components/t.vue";
 
@@ -205,7 +212,6 @@ export default {
 
 
 <style scoped>
-
 #app {
   width: 100%;
 }
@@ -215,5 +221,4 @@ export default {
   align-items: flex-start;
   padding-top: 1em;
 }
-
 </style>
