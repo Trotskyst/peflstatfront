@@ -48,10 +48,10 @@
 <script>
 // import LeftMenu from "@/components/LeftMenu.vue";
 // import CountryList from "@/components/CountryList.vue";
-import Loader from "@/components/Loader.vue";
-import Header from "@/components/Header.vue";
+import Loader from "@/components/Loader";
+import Header from "@/components/Header";
 
-import TT from "@/components/t.vue";
+// import TT from "@/components/t.vue";
 
 export default {
   name: "country",
@@ -60,7 +60,7 @@ export default {
     // CountryList,
     Loader,
     Header,
-    TT
+    // TT
   },
   data() {
     return {
@@ -71,7 +71,8 @@ export default {
       chemp_selected: false,
       div_downloaded: false,
       countries: null,
-      api_url: "https://peflstatback.herokuapp.com/api/v1/",
+      // api_url: "https://peflstatback.herokuapp.com/api/v1/",
+      api_url: "http://127.0.0.1:8000/api/v1/",
       header_text: "",
       header_show_link_change_chemp: 0
     };

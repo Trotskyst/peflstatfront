@@ -28,7 +28,7 @@
 
 export default {
   props: {
-    table: {}
+    table: {},
   },
   data() {
     return {};

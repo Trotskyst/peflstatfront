@@ -1,14 +1,35 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <!-- Бомбардиры, распасовщики -->
+    - <TwoColumnsTables2 :table_left="table_bombarders" :table_right="table_pivots" />
+    <!-- <OtherTable2
+      :headers="table_bombarders.headers"
+      :items="table_bombarders.items"
+      :table_name="table_bombarders.table_name"
+    />
+    <OtherTable2
+      :headers="table_pivots.headers"
+      :items="table_pivots.items"
+      :table_name="table_pivots.table_name"
+    /> -->
+    <!-- Гол + Пас -->
+    <OtherTable :table="table_goals_and_pass" />
+    <!-- <TeamList :team_list="team_list" /> -->
+  </div>
 </template>
 
 <script>
 import { UniqueObjectsOfTeamAndPlayer } from "@/assets/js/functions.js";
 
 import { GetBombarders } from "@/assets/js/turnir_players.js";
+import { GetPivots } from "@/assets/js/turnir_players.js";
+import { GetGoalAndPass } from "@/assets/js/turnir_players.js";
 
 import OtherTable from "@/components/tables/OtherTable";
+import OtherTable2 from "@/components/tables/OtherTable2";
 import TwoColumnsTables from "@/components/tables/TwoColumnsTables";
+import TwoColumnsTables2 from "@/components/tables/TwoColumnsTables2";
+import TeamList from "@/components/TeamList";
 
 // import TT from "@/components/t.vue";
 
@@ -16,43 +37,67 @@ export default {
   name: "statmain",
   components: {
     OtherTable,
-    TwoColumnsTables
+    OtherTable2,
+    TwoColumnsTables,
+    TwoColumnsTables2,
+    TeamList
     // TT,
   },
   props: {
     api_url: String,
     stat: Array,
-    stat_players: Array,
-    stat_goals: Array
+    // stat_players: Array,
+    stat_goals: Array,
+    players_bombarder: Array,
+    players_pivots: Array,
+    players_list_goal_or_pass: Array,
+    count_rows_default: {
+      type: Number,
+      default: 20
+    }
   },
   data() {
     return {
-      team_list: [],
-      turnir_table_header: [],
-
-      table_bombarders: []
+      count_table_pivots: this.count_rows_default,
+      table_bombarders: [],
+      table_pivots: [],
+      table_goals_and_pass: [],
+      show_more_bombarders: {
+        type: Boolean,
+        default: false
+      }
     };
   },
   created() {
-    // перечень игроков
-    let players_list_goal_tmp = [];
-    let players_list_pass_tmp = [];
-    for (let i = 0; i < this.stat_goals.length; i++) {
-      players_list_goal_tmp.push({
-        team: this.stat_goals[i]["team"],
-        player: this.stat_goals[i]["player_goal"]
-      });
-      players_list_pass_tmp.push({
-        team: this.stat_goals[i]["team"],
-        player: this.stat_goals[i]["player_pass"]
-      });
-    }
-
-    let players_list_goal = UniqueObjectsOfTeamAndPlayer(players_list_goal_tmp); //список забивших гол
-    let players_list_pass = UniqueObjectsOfTeamAndPlayer(players_list_pass_tmp);
-
-    this.table_bombarders = GetBombarders(this.stat_goals, players_list_goal); //Бомбардиры
+    this.table_bombarders = GetBombarders(this.players_bombarder); //Бомбардиры
+    this.table_pivots = GetPivots(this.players_pivots); //Голевые распасовщики
   }
+  // this.table_pivots = GetPivots(
+  //   this.stat_players,
+  //   this.stat_goals,
+  //   this.players_list_pass,
+  //   this.count_table_pivots
+  // ); //Распасовщики
+
+  // this.table_goals_and_pass = GetGoalAndPass(
+  //   this.stat_players,
+  //   this.stat_goals,
+  //   this.players_list_goal_or_pass,
+  //   this.count_table_pivots
+  // ); //Гол + Пас
+  // },
+  // computed: {
+  //   table_bombarders_slice: function() {
+  //     return {
+  //       header: this.table_bombarders["header"],
+  //       table: this.table_bombarders["table"].slice(
+  //         0,
+  //         this.count_table_bombarders
+  //       ),
+  //       table_name: this.table_bombarders["table_name"]
+  //     };
+  //   }
+  // }
 };
 </script>
 
