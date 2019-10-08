@@ -45,8 +45,8 @@ export default {
       stat_goals: null,
       apiLoaded: 0,
       apiLoadedMaxCount: 4,
-      // api_url: "https://peflstatback.herokuapp.com/api/v1/",
-      api_url: "http://127.0.0.1:8000/api/v1/",
+      api_url: "https://peflstatback.herokuapp.com/api/v1/",
+      // api_url: "http://127.0.0.1:8000/api/v1/",
       api_end:
         "/17/" +
         this.$route.query.country +
