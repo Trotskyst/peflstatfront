@@ -71,8 +71,8 @@ export default {
       chemp_selected: false,
       div_downloaded: false,
       countries: null,
-      // api_url: "https://peflstatback.herokuapp.com/api/v1/",
-      api_url: "http://127.0.0.1:8000/api/v1/",
+      api_url: "https://peflstatback.herokuapp.com/api/v1/",
+      // api_url: "http://127.0.0.1:8000/api/v1/",
       header_text: "",
       header_show_link_change_chemp: 0
     };
