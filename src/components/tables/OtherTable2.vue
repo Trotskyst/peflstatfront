@@ -29,7 +29,7 @@
               <td
                 v-for="(header, index) in headers"
                 class="table_row"
-                :class="{'text-center': index===0 || index===3 || index==4}"
+                :class="{'text-center': index===0 || index===3 || index==4 || index==5 || index==6}"
                 :key="header.value"
               >{{ item_index[header.value]}}</td>
             </tr>

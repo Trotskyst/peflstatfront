@@ -15,11 +15,18 @@
       </v-btn>
     </v-app-bar>
 
-    <v-toolbar height="auto" v-if="loading_main || loading_additional_bombarders || loading_additional_pivots">
+    <v-toolbar
+      height="auto"
+      v-if="loading_main || loading_additional_bombarders || loading_additional_pivots || loading_additional_goal_and_pases"
+    >
       <v-container flex>
         <Loader v-if="loading_main" :text_info="text_info_main" />
         <Loader v-if="loading_additional_bombarders" :text_info="text_info_additional_bombarders" />
         <Loader v-if="loading_additional_pivots" :text_info="text_info_additional_pivots" />
+        <Loader
+          v-if="loading_additional_goal_and_pases"
+          :text_info="text_info_additional_goal_and_pases"
+        />
       </v-container>
     </v-toolbar>
   </div>
@@ -38,13 +45,15 @@ export default {
     loading_main: Boolean,
     loading_additional_bombarders: Boolean,
     loading_additional_pivots: Boolean,
+    loading_additional_goal_and_pases: Boolean
     // loading_goals: Boolean
   },
   data() {
     return {
       text_info_main: "Загрузка основной статистики",
       text_info_additional_bombarders: "Загрузка бомбардиров",
-      text_info_additional_pivots: "Загрузка голевых распасовщиков"
+      text_info_additional_pivots: "Загрузка голевых распасовщиков",
+      text_info_additional_goal_and_pases: "Загрузка Гол + Пас"
     };
   }
 };

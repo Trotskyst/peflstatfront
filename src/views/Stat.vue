@@ -6,16 +6,19 @@
       :loading_main="loading_main"
       :loading_additional_bombarders="loading_additional_bombarders"
       :loading_additional_pivots="loading_additional_pivots"
+      :loading_additional_goal_and_pases="loading_additional_goal_and_pases"
+      :apiLoadedMaxCount="apiLoadedMaxCount"
     />
 
-    <TeamsStat v-if="apiLoaded === 3" :api_url="api_url" :stat="stat" />
+    <TeamsStat v-if="apiLoaded === apiLoadedMaxCount" :api_url="api_url" :stat="stat" />
 
     <PlayersStat
-      v-if="apiLoaded === 3"
+      v-if="apiLoaded === apiLoadedMaxCount"
       :api_url="api_url"
       :stat="stat"
       :players_bombarder="players_bombarder"
       :players_pivots="players_pivots"
+      :players_goal_and_pases="players_goal_and_pases"
     />
   </div>
 </template>
@@ -41,9 +44,9 @@ export default {
       stat_players: null,
       stat_goals: null,
       apiLoaded: 0,
-      apiAdditionalLoaded: 0,
-      api_url: "https://peflstatback.herokuapp.com/api/v1/",
-      // api_url: "http://127.0.0.1:8000/api/v1/",
+      apiLoadedMaxCount: 4,
+      // api_url: "https://peflstatback.herokuapp.com/api/v1/",
+      api_url: "http://127.0.0.1:8000/api/v1/",
       api_end:
         "/17/" +
         this.$route.query.country +
@@ -63,11 +66,13 @@ export default {
 
       loading_main: true,
       loading_additional_bombarders: true,
-      loading_additional_pivots:true,
+      loading_additional_pivots: true,
+      loading_additional_goal_and_pases: true,
       // loading_goals: true,
       team_list: [],
       players_bombarder: [],
-      players_pivots: []
+      players_pivots: [],
+      players_goal_and_pases: []
       // players_list_pass: [],
       // players_list_goal_or_pass: []
     };
@@ -88,7 +93,7 @@ export default {
         .get(url)
         .then(response => {
           this.players_bombarder = response.data;
-         this.apiLoaded++;
+          this.apiLoaded++;
         })
         .finally(() => (this.loading_additional_bombarders = false));
     },
@@ -99,9 +104,21 @@ export default {
         .get(url)
         .then(response => {
           this.players_pivots = response.data;
-         this.apiLoaded++;
+          this.apiLoaded++;
         })
         .finally(() => (this.loading_additional_pivots = false));
+    },
+    async GetPlayersGoalAndPases() {
+      const axios = require("axios");
+      let url =
+        this.api_url + "additional/players_goal_and_pases" + this.api_end;
+      await axios
+        .get(url)
+        .then(response => {
+          this.players_goal_and_pases = response.data;
+          this.apiLoaded++;
+        })
+        .finally(() => (this.loading_additional_goal_and_pases = false));
     },
     // async GetPlayersPass() {
     //   const axios = require("axios");
@@ -160,6 +177,7 @@ export default {
     // this.GetTeamList();
     this.GetPlayersBombarder();
     this.GetPlayersPivots();
+    this.GetPlayersGoalAndPases();
     // this.GetPlayersListGoalAndPass();
     this.GetStatMain();
     // this.GetStatPlayers();

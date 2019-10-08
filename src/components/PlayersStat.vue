@@ -2,6 +2,11 @@
   <div id="app">
     <!-- Бомбардиры, распасовщики -->
     - <TwoColumnsTables2 :table_left="table_bombarders" :table_right="table_pivots" />
+    <OtherTable2
+                  :headers="table_goal_and_pases.headers"
+                  :items="table_goal_and_pases.items"
+                  :table_name="table_goal_and_pases.table_name"
+                />
     <!-- <OtherTable2
       :headers="table_bombarders.headers"
       :items="table_bombarders.items"
@@ -13,7 +18,7 @@
       :table_name="table_pivots.table_name"
     /> -->
     <!-- Гол + Пас -->
-    <OtherTable :table="table_goals_and_pass" />
+    <!-- <OtherTable :table="table_goals_and_pass" /> -->
     <!-- <TeamList :team_list="team_list" /> -->
   </div>
 </template>
@@ -23,7 +28,7 @@ import { UniqueObjectsOfTeamAndPlayer } from "@/assets/js/functions.js";
 
 import { GetBombarders } from "@/assets/js/turnir_players.js";
 import { GetPivots } from "@/assets/js/turnir_players.js";
-import { GetGoalAndPass } from "@/assets/js/turnir_players.js";
+import { GetGoalAndPases } from "@/assets/js/turnir_players.js";
 
 import OtherTable from "@/components/tables/OtherTable";
 import OtherTable2 from "@/components/tables/OtherTable2";
@@ -50,7 +55,7 @@ export default {
     stat_goals: Array,
     players_bombarder: Array,
     players_pivots: Array,
-    players_list_goal_or_pass: Array,
+    players_goal_and_pases: Array,
     count_rows_default: {
       type: Number,
       default: 20
@@ -61,7 +66,7 @@ export default {
       count_table_pivots: this.count_rows_default,
       table_bombarders: [],
       table_pivots: [],
-      table_goals_and_pass: [],
+      table_goal_and_pases: [],
       show_more_bombarders: {
         type: Boolean,
         default: false
@@ -71,6 +76,7 @@ export default {
   created() {
     this.table_bombarders = GetBombarders(this.players_bombarder); //Бомбардиры
     this.table_pivots = GetPivots(this.players_pivots); //Голевые распасовщики
+    this.table_goal_and_pases = GetGoalAndPases(this.players_goal_and_pases); //Гол+Пас
   }
   // this.table_pivots = GetPivots(
   //   this.stat_players,
