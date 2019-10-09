@@ -7,19 +7,7 @@
                   :items="table_goal_and_pases.items"
                   :table_name="table_goal_and_pases.table_name"
                 />
-    <!-- <OtherTable2
-      :headers="table_bombarders.headers"
-      :items="table_bombarders.items"
-      :table_name="table_bombarders.table_name"
-    />
-    <OtherTable2
-      :headers="table_pivots.headers"
-      :items="table_pivots.items"
-      :table_name="table_pivots.table_name"
-    /> -->
-    <!-- Гол + Пас -->
-    <!-- <OtherTable :table="table_goals_and_pass" /> -->
-    <!-- <TeamList :team_list="team_list" /> -->
+    <TeamList :team_list="team_list" :players_team_playedmaxtime="players_team_playedmaxtime" :api_url="api_url" :api_end="api_end" />
   </div>
 </template>
 
@@ -50,12 +38,12 @@ export default {
   },
   props: {
     api_url: String,
-    stat: Array,
-    // stat_players: Array,
-    stat_goals: Array,
+    api_end: String,
+    team_list: Array,
     players_bombarder: Array,
     players_pivots: Array,
     players_goal_and_pases: Array,
+    players_team_playedmaxtime: Array,
     count_rows_default: {
       type: Number,
       default: 20

@@ -15,18 +15,16 @@
       </v-btn>
     </v-app-bar>
 
-    <v-toolbar
-      height="auto"
-      v-if="loading_main || loading_additional_bombarders || loading_additional_pivots || loading_additional_goal_and_pases"
-    >
+    <!-- v-if="loading_main || loading_bombarders || loading_pivots || loading_goal_and_pases" -->
+
+    <v-toolbar height="auto" v-if="apiLoaded !== apiLoadedMaxCount">
       <v-container flex>
         <Loader v-if="loading_main" :text_info="text_info_main" />
-        <Loader v-if="loading_additional_bombarders" :text_info="text_info_additional_bombarders" />
-        <Loader v-if="loading_additional_pivots" :text_info="text_info_additional_pivots" />
-        <Loader
-          v-if="loading_additional_goal_and_pases"
-          :text_info="text_info_additional_goal_and_pases"
-        />
+        <Loader v-if="loading_bombarders" :text_info="text_info_additional_bombarders" />
+        <Loader v-if="loading_pivots" :text_info="text_info_additional_pivots" />
+        <Loader v-if="loading_goal_and_pases" :text_info="text_info_additional_goal_and_pases" />
+        <Loader v-if="loading_teamlist" :text_info="text_teamlist" />
+        <Loader v-if="loading_team_playedmaxtime" :text_info="text_team_playedmaxtime" />
       </v-container>
     </v-toolbar>
   </div>
@@ -42,18 +40,23 @@ export default {
   props: {
     header_text: String,
     show_link_change_chemp: Number,
+    apiLoaded: Number,
+    apiLoadedMaxCount: Number,
     loading_main: Boolean,
-    loading_additional_bombarders: Boolean,
-    loading_additional_pivots: Boolean,
-    loading_additional_goal_and_pases: Boolean
-    // loading_goals: Boolean
+    loading_bombarders: Boolean,
+    loading_pivots: Boolean,
+    loading_goal_and_pases: Boolean,
+    loading_teamlist: Boolean,
+    loading_team_playedmaxtime: Boolean,
   },
   data() {
     return {
       text_info_main: "Загрузка основной статистики",
       text_info_additional_bombarders: "Загрузка бомбардиров",
       text_info_additional_pivots: "Загрузка голевых распасовщиков",
-      text_info_additional_goal_and_pases: "Загрузка Гол + Пас"
+      text_info_additional_goal_and_pases: "Загрузка Гол + Пас",
+      text_teamlist: "Загрузка списка команд",
+      text_team_playedmaxtime: "Загрузка списка игроков, игравших в последних 5 турах"
     };
   }
 };
